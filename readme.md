@@ -13,12 +13,25 @@ MSU / Stand Alone Windows Update Samples
 * [Install Resources](WMF5_Install/SetupPrerequisites.ps1)
 * [Configuration](WMF5_Install/WMF5Install.ps1)
 
-Non-MSI Setup Samples
+Non-MSI All-User Setup Samples
 ---------------------
 #### Sublime 3
 
 * [Install Resources](Sublime3/SetupPrerequisites.ps1)
 * [Configuration](Sublime3/Sublime3.ps1)
+
+#### Notepad 2
+
+* [Install Resources](Notepad2/SetupPrerequisites.ps1)
+* [Configuration](Notepad2/Notepad2.ps1)
+
+Non-MSI Per-User Setup Samples
+---------------------
+#### Visual Studio Code
+
+* [Install Resources](VsCode/SetupPrerequisites.ps1)
+* [Configuration](VsCode/VsCode.ps1)
+
 
 MSI Setup Example
 -----------------
