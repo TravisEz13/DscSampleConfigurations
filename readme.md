@@ -8,10 +8,11 @@ MSU / Stand Alone Windows Update Samples
 
 * [Install Resources](RSAT8_1/SetupPrerequisites.ps1)
 * [Configuration](RSAT8_1/Rsat8_1Install.ps1)
+
 #### WMF 5 Installation
 
-* [Install Resources](WMF5_Install/SetupPrerequisites.ps1)
-* [Configuration](WMF5_Install/WMF5Install.ps1)
+* [Install Resources](wmf5_Install/SetupPrerequisites.ps1)
+* [Configuration](wmf5_Install/Wmf5Install.ps1)
 
 Non-MSI All-User Setup Samples
 ---------------------
