@@ -52,6 +52,17 @@ configuration SublimeSetup
 }
 ```
 
+Get the version on an MSI
+-------------------------
+Note: this requries WMF5 or higher
+```PowerShell
+Invoke-DscResource -name package -Method get -ModuleName PSDesiredStateConfiguration -Property @{
+    ProductID='{DD3A1267-1A98-4332-BE1A-1D415C2CC1D8}'
+    Name='Microsoft Lync Web App Plug-in'
+    Path='C:\whyisthisneeded.msi'
+}
+```
+
 Installing Resources
 ---------------------
 Most samples provided in this repo provide a SetupPrerequisites which will work to install the Resources required to run the configuration on WMF5/PowerShell5 and higher.  If you are running PowerShell 4, you can see the [same file](WMF5_Install/SetupPrerequisites.ps1) for installing WMF 5, to do the same thing on PowerShell 4.
