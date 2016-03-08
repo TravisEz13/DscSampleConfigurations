@@ -33,12 +33,31 @@
       Repository        = 'PSGallery'
       InstallationPolicy='trusted'     
   }     
-  <#Script updateAzureRM
+  Script updateAzureRM
   {
-    TestScript = { return $false}
+    TestScript = { 
+    import-module azurerm
+    $azureRmModule = (get-module azurerm).Invoke({$AzureRMModules}, @())
+      foreach($moduleName in $azureRmModule.keys) {
+        $psGalleryModule = find-module -Name $moduleName
+        $installedModule = (get-module -Name $moduleName -ListAvailable | Sort-Object -Property Version -Descending | Select-Object -First 1)
+        if($psGallery.Version -gt $installedModule.Version){
+          return $false
+        }
+      }
+      return $true
+    }
     SetScript = { 
-      Import-module AzureRM
-      Update-AzureRM
+      import-module azurerm
+      $azureRmModule = (get-module azurerm).Invoke({$AzureRMModules}, @())
+      foreach($moduleName in $azureRmModule.keys) {
+        $psGalleryModule = find-module -Name $moduleName
+        $installedModule = (get-module -Name $moduleName -ListAvailable | Sort-Object -Property Version -Descending | Select-Object -First 1)
+        if($psGallery.Version -gt $installedModule.Version){
+          $psGalleryModule | Install-module -force
+        }
+      }
+      return $true
     }
     GetScript = {return @{}}
   } #>                         
