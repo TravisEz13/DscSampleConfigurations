@@ -52,6 +52,22 @@ configuration SublimeSetup
 }
 ```
 
+#### dotnet cli
+
+```PowerShell
+configuration dotnet
+{
+  Import-dscresource -ModuleName xpsdesiredstateconfiguration
+  xPackage dotnet
+  {
+    Name = 'Microsoft Dotnet CLI for Windows (1.0.0.001598 )'
+    Path = 'https://dotnetcli.blob.core.windows.net/dotnet/beta/Installers/1.0.0.001598/dotnet-win-x64.1.0.0.001598.exe'
+    ProductId = '{7DE53F51-B432-412B-9447-943A5138457A}'
+    Arguments =  '/install /passive /norestart'    
+  }
+}
+```
+
 Get the version on an MSI
 -------------------------
 Note: this requries WMF5 or higher
@@ -66,3 +82,14 @@ Invoke-DscResource -name package -Method get -ModuleName PSDesiredStateConfigura
 Installing Resources
 ---------------------
 Most samples provided in this repo provide a SetupPrerequisites which will work to install the Resources required to run the configuration on WMF5/PowerShell5 and higher.  If you are running PowerShell 4, you can see the [same file](WMF5_Install/SetupPrerequisites.ps1) for installing WMF 5, to do the same thing on PowerShell 4.
+
+
+Get a list of productID and the name for the product
+-----------------------------------------------------
+I created a function to help find the ProductID and names.
+* [Module](ListMsiProductIdse/ListMsiProductIds.ps1)
+
+```Powershell
+$items = Get-ProductEntry                                                                                                                                      
+$items | Sort-Object -Descending -Property InstallDate           
+```
