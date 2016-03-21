@@ -1,9 +1,8 @@
 ﻿configuration InstallTools
 {
   Import-DscResource -ModuleName cChoco
-
-
-    Import-DscResource -Module PackageManagementProviderResource
+  Import-dscresource -ModuleName xpsdesiredstateconfiguration
+  Import-DscResource -Module PackageManagementProviderResource
 
   PSModule pester
   {
@@ -104,7 +103,18 @@
   {
     Name = 'webpicmd'
   }
-  <#
+  cChocoPackageInstaller 'cmake.portable'
+  {
+    Name = 'cmake.portable'
+  }
+  xPackage dotnet
+  {
+    Name = 'Microsoft Dotnet CLI for Windows (1.0.0.001598 )'
+    Path = 'https://dotnetcli.blob.core.windows.net/dotnet/beta/Installers/1.0.0.001598/dotnet-win-x64.1.0.0.001598.exe'
+    ProductId = '{7DE53F51-B432-412B-9447-943A5138457A}'
+    Arguments =  '/install /passive /norestart'
+    
+  }  <#
   cChocoPackageInstaller 'visualstudiocode'
   {
     Name = 'visualstudiocode'
