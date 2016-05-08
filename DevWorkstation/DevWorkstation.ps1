@@ -32,34 +32,8 @@
       Repository        = 'PSGallery'
       InstallationPolicy='trusted'     
   }     
-  Script updateAzureRM
-  {
-    TestScript = { 
-    import-module azurerm
-    $azureRmModule = (get-module azurerm).Invoke({$AzureRMModules}, @())
-      foreach($moduleName in $azureRmModule.keys) {
-        $psGalleryModule = find-module -Name $moduleName
-        $installedModule = (get-module -Name $moduleName -ListAvailable | Sort-Object -Property Version -Descending | Select-Object -First 1)
-        if($psGallery.Version -gt $installedModule.Version){
-          return $false
-        }
-      }
-      return $true
-    }
-    SetScript = { 
-      import-module azurerm
-      $azureRmModule = (get-module azurerm).Invoke({$AzureRMModules}, @())
-      foreach($moduleName in $azureRmModule.keys) {
-        $psGalleryModule = find-module -Name $moduleName
-        $installedModule = (get-module -Name $moduleName -ListAvailable | Sort-Object -Property Version -Descending | Select-Object -First 1)
-        if($psGallery.Version -gt $installedModule.Version){
-          $psGalleryModule | Install-module -force
-        }
-      }
-      return $true
-    }
-    GetScript = {return @{}}
-  } #>                         
+
+  
   cChocoInstaller choco
   {
     InstallDir = 'C:\choco'
@@ -70,51 +44,29 @@
     Name = 'notepadplusplus.install'
   }
   #>
-  cChocoPackageInstaller '7zip'
-  {
-    Name = '7zip.install'
-  }
-  <#
-  cChocoPackageInstaller 'git'
-  {
-    Name = 'git.install'
-  }#>
-  cChocoPackageInstaller 'sysinternals'
-  {
-    Name = 'sysinternals'
-   
-  }
-  cChocoPackageInstaller 'notepad2'
-  {
-    Name = 'notepad2'
-   
-  }
-  cChocoPackageInstaller 'baretail'
-  {
-    Name = 'baretail'
-  }
+    $chocoPackages = @('7Zip','sysinternals','notepad2','git.install','baretail','chocolateygui','webpicmd','cmake.portable')                          
+    foreach($chocoPackage in $chocoPackages)
+    {
+        cChocoPackageInstaller $chocoPackage
+        {
+            Name = $chocoPackage
+        }
+    }
   <#
   cChocoPackageInstaller 'beyondcompare'
   {
     Name = 'beyondcompare'
   }
   #>
-  cChocoPackageInstaller 'webpicmd'
-  {
-    Name = 'webpicmd'
-  }
-  cChocoPackageInstaller 'cmake.portable'
-  {
-    Name = 'cmake.portable'
-  }
-  xPackage dotnet
+  
+  <#xPackage dotnet
   {
     Name = 'Microsoft Dotnet CLI for Windows (1.0.0.001598 )'
     Path = 'https://dotnetcli.blob.core.windows.net/dotnet/beta/Installers/1.0.0.001598/dotnet-win-x64.1.0.0.001598.exe'
     ProductId = '{7DE53F51-B432-412B-9447-943A5138457A}'
     Arguments =  '/install /passive /norestart'
     
-  }  <#
+  } #> <#
   cChocoPackageInstaller 'visualstudiocode'
   {
     Name = 'visualstudiocode'
