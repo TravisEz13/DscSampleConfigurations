@@ -44,7 +44,7 @@
     Name = 'notepadplusplus.install'
   }
   #>
-    $chocoPackages = @('7Zip','sysinternals','notepad2','git.install','baretail','chocolateygui','webpicmd','cmake.portable')                          
+    $chocoPackages = @('7Zip','sysinternals','notepad2','git.install','baretail','chocolateygui','webpicmd','cmake.portable','vim')                          
     foreach($chocoPackage in $chocoPackages)
     {
         cChocoPackageInstaller $chocoPackage
@@ -72,6 +72,12 @@
     Name = 'visualstudiocode'
   }
   #>
+  Environment chocolatelyInstall
+  {
+    Name = 'chocolatelyInstall'
+    value = 'C:\choco\bin'
+  }
+
   
   
 }
